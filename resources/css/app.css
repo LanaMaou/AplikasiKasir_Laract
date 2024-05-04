@@ -3,3 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --ti-cursor-color: #916cff;
+    --ti-cursor-transform: translateX(1px);
+}

@@ -1,7 +1,8 @@
 import Modal from "@/Components/Modal";
 import ShowData from "@/Components/ShowData";
-import { Link, router } from "@inertiajs/react";
-import { useState } from "react";
+import { router } from "@inertiajs/react";
+import { useEffect, useState } from "react";
+import handleDelete from "./utils/handleDelete";
 
 export default function Produk(props) {
     const [showModal, setShowModal] = useState(false);
@@ -10,6 +11,17 @@ export default function Produk(props) {
     const [HargaProduk, setHargaProduk] = useState("");
     const [Stok, setStok] = useState("");
     const [Produk, setProduk] = useState({});
+    const [flashMessage, setFlashMessage] = useState("");
+
+    useEffect(() => {
+        if (props.flash.message) {
+            setFlashMessage(props.flash.message);
+            setTimeout(() => {
+                setFlashMessage("");
+                props.flash.message = "";
+            }, 3000);
+        }
+    }, [props.flash.message]);
 
     const submitTambah = (e) => {
         e.preventDefault();
@@ -44,7 +56,11 @@ export default function Produk(props) {
     };
 
     return (
-        <ShowData title={props.title} user={props.auth.user}>
+        <ShowData
+            title={props.title}
+            user={props.auth.user}
+            message={flashMessage}
+        >
             <Modal
                 show={showModal}
                 closeable={true}
@@ -97,7 +113,7 @@ export default function Produk(props) {
                                         </span>
                                     </div>
                                     <input
-                                        type="text"
+                                        type="number"
                                         placeholder="Harga Produk"
                                         className="input input-bordered input-primary w-full max-w-full"
                                         onChange={(HargaProduk) =>
@@ -113,6 +129,8 @@ export default function Produk(props) {
                                                   )
                                                 : ""
                                         }
+                                        min={0}
+                                        max={9999999999}
                                     />
                                 </label>
                                 <label className="form-control w-full">
@@ -120,7 +138,7 @@ export default function Produk(props) {
                                         <span className="label-text">Stok</span>
                                     </div>
                                     <input
-                                        type="text"
+                                        type="number"
                                         placeholder="Stok"
                                         className="input input-bordered input-primary w-full max-w-full"
                                         onChange={(Stok) =>
@@ -159,61 +177,64 @@ export default function Produk(props) {
                 >
                     Tambah Data
                 </button>
-                <table className="table font-bold text-lg text-center">
-                    <thead>
-                        <tr className="bg-base-200 text-lg ">
-                            <th>No</th>
-                            <th>Nama Produk</th>
-                            <th>Harga</th>
-                            <th>Stok</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {props.produks.data && props.produks.data.length > 0 ? (
-                            props.produks.data.map((produk, index) => (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{produk.nama_produk}</td>
+                <div className="overflow-y-scroll max-h-[500px]">
+                    <table className="table font-bold text-lg text-center table-pin-rows table-pin-cols">
+                        <thead>
+                            <tr className="bg-base-200 text-lg ">
+                                <th>No</th>
+                                <th>Nama Produk</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {props.produks.data &&
+                            props.produks.data.length > 0 ? (
+                                props.produks.data.map((produk, index) => (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{produk.nama_produk}</td>
+                                        <td>
+                                            {Math.floor(
+                                                produk.harga_produk
+                                            ).toLocaleString("id-ID", {
+                                                style: "currency",
+                                                currency: "IDR",
+                                            })}
+                                        </td>
+                                        <td>{produk.stok}</td>
+                                        <td className="flex justify-center gap-2">
+                                            <button
+                                                className="btn btn-outline btn-sm btn-warning"
+                                                onClick={() =>
+                                                    handleEdit(produk)
+                                                }
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                className="btn btn-outline btn-sm btn-error"
+                                                as="button"
+                                                onClick={() =>
+                                                    handleDelete(produk.id)
+                                                }
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
                                     <td>
-                                        {Math.floor(
-                                            produk.harga_produk
-                                        ).toLocaleString("id-ID", {
-                                            style: "currency",
-                                            currency: "IDR",
-                                        })}
-                                    </td>
-                                    <td>{produk.stok}</td>
-                                    <td className="flex justify-center gap-2">
-                                        <button
-                                            className="btn btn-outline btn-sm btn-warning"
-                                            onClick={() => handleEdit(produk)}
-                                        >
-                                            Edit
-                                        </button>
-                                        <Link
-                                            className="btn btn-outline btn-sm btn-error"
-                                            href={route(
-                                                "produk.destroy",
-                                                produk.id
-                                            )}
-                                            method="delete"
-                                            as="button"
-                                        >
-                                            Delete
-                                        </Link>
+                                        <p>Produk Masih Kosong!</p>
                                     </td>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td>
-                                    <p>Produk Masih Kosong!</p>
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </ShowData>
     );

@@ -25,8 +25,13 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        Produk::create($request->all());
-        return redirect()->route('produk.index');
+        $produk = Produk::create($request->all());
+        if ($produk) {
+            return redirect()->route('produk.index')->with('message', 'Data Berhasil Ditambahkan');
+        } else {
+            return redirect()->route('produk.index')->with('message', 'Data Gagal Ditambahkan');
+        }
+
     }
 
     /**
@@ -34,8 +39,12 @@ class ProdukController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Produk::find($id)->update($request->all());
-        return redirect()->route('produk.index');
+        $produk = Produk::find($id)->update($request->all());
+        if ($produk) {
+            return redirect()->route('produk.index')->with('message', 'Data Berhasil Diubah');
+        } else {
+            return redirect()->route('produk.index')->with('message', 'Data Gagal Diubah');
+        }
     }
 
     /**
@@ -43,7 +52,11 @@ class ProdukController extends Controller
      */
     public function destroy(string $id)
     {
-        Produk::find($id)->delete();
-        return redirect()->route('produk.index');
+        $produk = Produk::find($id)->delete();
+        if ($produk) {
+            return redirect()->route('produk.index')->with('message', 'Data Berhasil Dihapus');
+        } else {
+            return redirect()->route('produk.index')->with('message', 'Data Gagal Dihapus');
+        }
     }
 }

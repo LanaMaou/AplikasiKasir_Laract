@@ -3,7 +3,7 @@ import { Link, usePage } from "@inertiajs/react";
 const Navbar = ({ user }) => {
     const { url } = usePage();
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 border-b-4 border-indigo-600 ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div
@@ -49,7 +49,7 @@ const Navbar = ({ user }) => {
                         </li>
                     </ul>
                 </div>
-                <Link className="btn btn-ghost text-xl" href={route("home")}>
+                <Link className="btn btn-ghost text-xl font-bold text-indigo-500" href={route("home")}>
                     Aplikasi Kasir
                 </Link>
             </div>
@@ -58,10 +58,11 @@ const Navbar = ({ user }) => {
                     <li>
                         <Link
                             className={
-                                url === "/"
+                                url === "/home"
                                     ? "text-white bg-indigo-500 hover:bg-purple-500 hover:ring-1"
                                     : ""
                             }
+                            href={route("home")}
                         >
                             HOME
                         </Link>
