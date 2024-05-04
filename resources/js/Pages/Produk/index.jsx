@@ -27,20 +27,20 @@ export default function Produk(props) {
         e.preventDefault();
 
         const data = {
-            id: Produk.id,
-            nama_produk: Produk.nama_produk,
-            harga_produk: Produk.harga_produk,
-            stok: Produk.stok,
+            nama_produk: NamaProduk !== "" ? NamaProduk : Produk.nama_produk,
+            harga_produk:
+                HargaProduk !== "" ? HargaProduk : Produk.harga_produk,
+            stok: Stok !== "" ? Stok : Produk.stok,
         };
+        setProduk({});
         setShowModal(false);
-        return router.put("/produk", data);
+        return router.put(`/produk/${Produk.id}`, data);
     };
 
     const handleEdit = (produk) => {
         setProduk(produk);
         setTitleModal("Ubah");
         setShowModal(true);
-        console.log(NamaProduk);
     };
 
     return (
@@ -67,46 +67,73 @@ export default function Produk(props) {
                             className="w-full"
                         >
                             <div className="flex flex-col items-center">
-                                <input
-                                    type="text"
-                                    placeholder="Nama Produk"
-                                    className="input input-bordered input-primary w-full max-w-full my-2"
-                                    onChange={(NamaProduk) =>
-                                        setNamaProduk(NamaProduk.target.value)
-                                    }
-                                    required
-                                    value={
-                                        Produk.nama_produk
-                                            ? Produk.nama_produk
-                                            : ""
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Harga Produk"
-                                    className="input input-bordered input-primary w-full max-w-full my-2"
-                                    onChange={(HargaProduk) =>
-                                        setHargaProduk(HargaProduk.target.value)
-                                    }
-                                    required
-                                    value={
-                                        Produk.harga_produk
-                                            ? Math.floor(Produk.harga_produk)
-                                            : ""
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Stok"
-                                    className="input input-bordered input-primary w-full max-w-full my-2"
-                                    onChange={(Stok) =>
-                                        setStok(Stok.target.value)
-                                    }
-                                    required
-                                    value={Produk.stok ? Produk.stok : ""}
-                                />
+                                <label className="form-control w-full">
+                                    <div className="label">
+                                        <span className="label-text">
+                                            Nama Produk
+                                        </span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder="Nama Produk"
+                                        className="input input-bordered input-primary w-full max-w-full"
+                                        onChange={(NamaProduk) =>
+                                            setNamaProduk(
+                                                NamaProduk.target.value
+                                            )
+                                        }
+                                        required
+                                        defaultValue={
+                                            Produk.nama_produk
+                                                ? Produk.nama_produk
+                                                : ""
+                                        }
+                                    />
+                                </label>
+                                <label className="form-control w-full">
+                                    <div className="label">
+                                        <span className="label-text">
+                                            Harga Produk
+                                        </span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder="Harga Produk"
+                                        className="input input-bordered input-primary w-full max-w-full"
+                                        onChange={(HargaProduk) =>
+                                            setHargaProduk(
+                                                HargaProduk.target.value
+                                            )
+                                        }
+                                        required
+                                        defaultValue={
+                                            Produk.harga_produk
+                                                ? Math.floor(
+                                                      Produk.harga_produk
+                                                  )
+                                                : ""
+                                        }
+                                    />
+                                </label>
+                                <label className="form-control w-full">
+                                    <div className="label">
+                                        <span className="label-text">Stok</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder="Stok"
+                                        className="input input-bordered input-primary w-full max-w-full"
+                                        onChange={(Stok) =>
+                                            setStok(Stok.target.value)
+                                        }
+                                        required
+                                        defaultValue={
+                                            Produk.stok ? Produk.stok : ""
+                                        }
+                                    />
+                                </label>
                             </div>
-                            <div className="flex justify-start w-full gap-1">
+                            <div className="flex justify-start w-full gap-1 mt-2">
                                 <button
                                     type="submit"
                                     className={`btn ${
@@ -170,6 +197,8 @@ export default function Produk(props) {
                                                 "produk.destroy",
                                                 produk.id
                                             )}
+                                            method="delete"
+                                            as="button"
                                         >
                                             Delete
                                         </Link>

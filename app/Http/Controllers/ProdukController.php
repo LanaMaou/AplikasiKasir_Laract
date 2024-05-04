@@ -21,16 +21,6 @@ class ProdukController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return Inertia::render('Produk/ProdukCreate', [
-            'title' => 'Halaman Tambah Produk'
-        ]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -40,26 +30,12 @@ class ProdukController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        Produk::find($id)->update($request->all());
+        return redirect()->route('produk.index');
     }
 
     /**
@@ -67,6 +43,7 @@ class ProdukController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Produk::find($id)->delete();
+        return redirect()->route('produk.index');
     }
 }
