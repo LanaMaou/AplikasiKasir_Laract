@@ -1,4 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
+import { BsBasket } from "react-icons/bs";
 
 const Navbar = ({ user }) => {
     const { url } = usePage();
@@ -31,26 +32,23 @@ const Navbar = ({ user }) => {
                         className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                     >
                         <li>
-                            <a>Item 1</a>
+                            <Link href={route("home")}>Home</Link>
                         </li>
                         <li>
-                            <a>Parent</a>
-                            <ul className="p-2">
-                                <li>
-                                    <a>Submenu 1</a>
-                                </li>
-                                <li>
-                                    <a>Submenu 2</a>
-                                </li>
-                            </ul>
+                            <Link href={route("produk.index")}>Produk</Link>
                         </li>
                         <li>
-                            <a>Item 3</a>
+                            <Link href={route("pelanggan.index")}>
+                                Pelanggan
+                            </Link>
                         </li>
                     </ul>
                 </div>
-                <Link className="btn btn-ghost text-xl font-bold text-indigo-500" href={route("home")}>
-                    Aplikasi Kasir
+                <Link
+                    className="btn btn-ghost text-xl font-bold text-indigo-500"
+                    href={route("home")}
+                >
+                    Aplikasi Kasir <BsBasket className="animate-bounce" />
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -59,8 +57,8 @@ const Navbar = ({ user }) => {
                         <Link
                             className={
                                 url === "/home"
-                                    ? "text-white bg-indigo-500 hover:bg-purple-500 hover:ring-1"
-                                    : ""
+                                    ? "text-white bg-indigo-500 hover:bg-purple-500 hover:ring-1 animate-pulse"
+                                    : "transition duration-300 hover:underline-offset-2 hover:underline decoration-2 decoration-indigo-500"
                             }
                             href={route("home")}
                         >
@@ -71,8 +69,8 @@ const Navbar = ({ user }) => {
                         <Link
                             className={
                                 url === "/produk"
-                                    ? "text-white bg-indigo-500 hover:bg-purple-500 hover:ring-1"
-                                    : ""
+                                    ? "text-white bg-indigo-500 hover:bg-purple-500 hover:ring-1 animate-pulse"
+                                    : "transition duration-300 hover:underline-offset-2 hover:underline decoration-2 decoration-indigo-500"
                             }
                             href={route("produk.index")}
                         >
@@ -83,9 +81,10 @@ const Navbar = ({ user }) => {
                         <Link
                             className={
                                 url === "/pelanggan"
-                                    ? "text-white bg-indigo-500 hover:bg-purple-500 hover:ring-1"
-                                    : ""
+                                    ? "text-white bg-indigo-500 hover:bg-purple-500 hover:ring-1 animate-pulse"
+                                    : "transition duration-300 hover:underline-offset-2 hover:underline decoration-2 decoration-indigo-500"
                             }
+                            href={route("pelanggan.index")}
                         >
                             PELANGGAN
                         </Link>
@@ -94,9 +93,10 @@ const Navbar = ({ user }) => {
                         <Link
                             className={
                                 url === "/penjualan"
-                                    ? "text-white bg-indigo-500 hover:bg-purple-500 hover:ring-1"
-                                    : ""
+                                    ? "text-white bg-indigo-500 hover:bg-purple-500 hover:ring-1 animate-pulse"
+                                    : "transition duration-300 hover:underline-offset-2 hover:underline decoration-2 decoration-indigo-500"
                             }
+                            // href={route("penjualan.index")}
                         >
                             PENJUALAN
                         </Link>
@@ -110,7 +110,7 @@ const Navbar = ({ user }) => {
                         role="button"
                         className="btn btn-ghost btn-circle avatar"
                     >
-                        <div className="w-10 rounded-full">
+                        <div className="w-10 rounded-full ring-2 ring-indigo-500">
                             <img
                                 alt="Logo Lanaa"
                                 src="/images/LANAA.png"
@@ -122,44 +122,11 @@ const Navbar = ({ user }) => {
                         tabIndex={0}
                         className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                     >
-                        {!user ? (
-                            <>
-                                <li>
-                                    <Link href={route("login")} as="button">
-                                        Login
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href={route("register")} as="button">
-                                        Register
-                                    </Link>
-                                </li>
-                            </>
-                        ) : (
-                            <>
-                                <li>
-                                    <Link
-                                        href={route("dashboard")}
-                                        as="button"
-                                        className="justify-between"
-                                    >
-                                        Dashboard
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link>Settings</Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href={route("logout")}
-                                        method="post"
-                                        as="button"
-                                    >
-                                        Logout
-                                    </Link>
-                                </li>
-                            </>
-                        )}
+                        <li>
+                            <Link href={route("logout")} as="button">
+                                Keluar
+                            </Link>
+                        </li>
                     </ul>
                 </div>
             </div>

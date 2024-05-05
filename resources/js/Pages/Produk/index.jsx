@@ -2,7 +2,10 @@ import Modal from "@/Components/Modal";
 import ShowData from "@/Components/ShowData";
 import { router } from "@inertiajs/react";
 import { useEffect, useState } from "react";
+import { TbCubePlus } from "react-icons/tb";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import handleDelete from "./utils/handleDelete";
+import FormProduk from "./FormProduk";
 
 export default function Produk(props) {
     const [showModal, setShowModal] = useState(false);
@@ -76,106 +79,28 @@ export default function Produk(props) {
                                 ? "Ubah Data"
                                 : "Tambah Data"}
                         </h2>
-                        <form
-                            onSubmit={(e) =>
-                                Produk.id ? submitUbah(e) : submitTambah(e)
-                            }
-                            className="w-full"
-                        >
-                            <div className="flex flex-col items-center">
-                                <label className="form-control w-full">
-                                    <div className="label">
-                                        <span className="label-text">
-                                            Nama Produk
-                                        </span>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        placeholder="Nama Produk"
-                                        className="input input-bordered input-primary w-full max-w-full"
-                                        onChange={(NamaProduk) =>
-                                            setNamaProduk(
-                                                NamaProduk.target.value
-                                            )
-                                        }
-                                        required
-                                        defaultValue={
-                                            Produk.nama_produk
-                                                ? Produk.nama_produk
-                                                : ""
-                                        }
-                                    />
-                                </label>
-                                <label className="form-control w-full">
-                                    <div className="label">
-                                        <span className="label-text">
-                                            Harga Produk
-                                        </span>
-                                    </div>
-                                    <input
-                                        type="number"
-                                        placeholder="Harga Produk"
-                                        className="input input-bordered input-primary w-full max-w-full"
-                                        onChange={(HargaProduk) =>
-                                            setHargaProduk(
-                                                HargaProduk.target.value
-                                            )
-                                        }
-                                        required
-                                        defaultValue={
-                                            Produk.harga_produk
-                                                ? Math.floor(
-                                                      Produk.harga_produk
-                                                  )
-                                                : ""
-                                        }
-                                        min={0}
-                                        max={9999999999}
-                                    />
-                                </label>
-                                <label className="form-control w-full">
-                                    <div className="label">
-                                        <span className="label-text">Stok</span>
-                                    </div>
-                                    <input
-                                        type="number"
-                                        placeholder="Stok"
-                                        className="input input-bordered input-primary w-full max-w-full"
-                                        onChange={(Stok) =>
-                                            setStok(Stok.target.value)
-                                        }
-                                        required
-                                        defaultValue={
-                                            Produk.stok ? Produk.stok : ""
-                                        }
-                                    />
-                                </label>
-                            </div>
-                            <div className="flex justify-start w-full gap-1 mt-2">
-                                <button
-                                    type="submit"
-                                    className={`btn ${
-                                        titleModal === "Ubah"
-                                            ? "btn-warning text-black"
-                                            : "btn-success text-white"
-                                    } text-base`}
-                                >
-                                    {titleModal === "Ubah" ? "Ubah" : "Tambah"}
-                                </button>
-                            </div>
-                        </form>
+                        <FormProduk
+                            Produk={Produk}
+                            titleModal={titleModal}
+                            setNamaProduk={setNamaProduk}
+                            setHargaProduk={setHargaProduk}
+                            setStok={setStok}
+                            submitUbah={submitUbah}
+                            submitTambah={submitTambah}
+                        />
                     </div>
                 </div>
             </Modal>
 
             <div className="overflow-x-auto mt-5 w-3/4 mx-auto">
                 <button
-                    className="btn btn-md btn-primary text-lg my-5 ms-2"
+                    className="btn btn-md btn-primary text-lg my-5 ms-2 group shadow-md shadow-purple-500"
                     onClick={() => {
                         setShowModal(true), setTitleModal("Tambah");
                     }}
                 >
-                    Tambah Data
+                    <TbCubePlus className="w-8 h-8 group-hover:animate-bounce duration-200" />{" "}
+                    Tambah Produk
                 </button>
                 <div className="overflow-y-scroll max-h-[500px]">
                     <table className="table font-bold text-lg text-center table-pin-rows table-pin-cols">
@@ -206,21 +131,23 @@ export default function Produk(props) {
                                         <td>{produk.stok}</td>
                                         <td className="flex justify-center gap-2">
                                             <button
-                                                className="btn btn-outline btn-sm btn-warning"
+                                                className="btn btn-outline btn-sm btn-warning group"
                                                 onClick={() =>
                                                     handleEdit(produk)
                                                 }
                                             >
-                                                Edit
+                                                <FaEdit className="group-hover:animate-bounce" />{" "}
+                                                Ubah
                                             </button>
                                             <button
-                                                className="btn btn-outline btn-sm btn-error"
+                                                className="btn btn-outline btn-sm btn-error group"
                                                 as="button"
                                                 onClick={() =>
                                                     handleDelete(produk.id)
                                                 }
                                             >
-                                                Delete
+                                                <FaTrash className="group-hover:animate-bounce" />
+                                                Hapus
                                             </button>
                                         </td>
                                     </tr>

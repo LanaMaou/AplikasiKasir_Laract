@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -11,6 +12,7 @@ Route::get('/home', function () {
 })->name('home');
 
 Route::resource('/produk', ProdukController::class);
+Route::resource('/pelanggan', PelangganController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

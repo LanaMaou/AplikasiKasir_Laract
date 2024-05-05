@@ -30,7 +30,7 @@ export default function ShowData({ children, ...props }) {
                             onClick={() => handleClickAlert()}
                         />
                     )}
-                    <h1 className="text-center font-semibold text-4xl">
+                    <h1 className="text-center font-bold text-4xl drop-shadow-lg">
                         {props.title}
                     </h1>
                     {children}

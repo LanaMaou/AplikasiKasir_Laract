@@ -2,7 +2,7 @@ export default function ShowAlert({ message, onClick = () => {} }) {
     return (
         <div
             role="alert"
-            className="alert w-1/3 flex justify-center shadow-md text-center absolute"
+            className="alert w-1/3 flex justify-center shadow-md text-center absolute z-10"
             onClick={onClick}
         >
             <svg

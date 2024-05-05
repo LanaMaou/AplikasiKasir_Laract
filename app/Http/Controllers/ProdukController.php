@@ -16,7 +16,7 @@ class ProdukController extends Controller
         $produks = Produk::latest()->paginate(10);
         return Inertia::render('Produk/index', [
             'produks' => $produks,
-            'title' => 'Halaman Produk'
+            'title' => 'Halaman Produk',
         ]);
     }
 
