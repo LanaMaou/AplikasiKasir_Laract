@@ -42,6 +42,11 @@ const Navbar = ({ user }) => {
                                 Pelanggan
                             </Link>
                         </li>
+                        <li>
+                            <Link href={route("penjualan.index")}>
+                                Penjualan
+                            </Link>
+                        </li>
                     </ul>
                 </div>
                 <Link
@@ -96,7 +101,7 @@ const Navbar = ({ user }) => {
                                     ? "text-white bg-indigo-500 hover:bg-purple-500 hover:ring-1 animate-pulse"
                                     : "transition duration-300 hover:underline-offset-2 hover:underline decoration-2 decoration-indigo-500"
                             }
-                            // href={route("penjualan.index")}
+                            href={route("penjualan.index")}
                         >
                             PENJUALAN
                         </Link>

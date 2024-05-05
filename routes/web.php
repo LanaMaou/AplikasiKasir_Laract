@@ -1,18 +1,23 @@
 <?php
 
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+
+Route::get('/', function () {
+    return Inertia::render('Homepage', ['title' => 'Homepage']);
+});
 Route::get('/home', function () {
     return Inertia::render('Homepage', ['title' => 'Homepage']);
 })->name('home');
 
 Route::resource('/produk', ProdukController::class);
 Route::resource('/pelanggan', PelangganController::class);
+Route::resource('/penjualan', PenjualanController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
