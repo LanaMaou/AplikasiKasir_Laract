@@ -97,7 +97,8 @@ const Navbar = ({ user }) => {
                     <li>
                         <Link
                             className={
-                                url === "/penjualan"
+                                url === "/penjualan" ||
+                                url.startsWith("/keranjang")
                                     ? "text-white bg-indigo-500 hover:bg-purple-500 hover:ring-1 animate-pulse"
                                     : "transition duration-300 hover:underline-offset-2 hover:underline decoration-2 decoration-indigo-500"
                             }

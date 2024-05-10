@@ -14,6 +14,8 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return Inertia::render('Homepage', ['title' => 'Homepage']);
 })->name('home');
+Route::get('/keranjang/{id}', [PenjualanController::class, 'keranjang'])->name('keranjang');
+Route::post('/keranjang', [PenjualanController::class, 'keranjang'])->name('keranjang.store');
 
 Route::resource('/produk', ProdukController::class);
 Route::resource('/pelanggan', PelangganController::class);

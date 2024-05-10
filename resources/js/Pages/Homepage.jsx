@@ -28,7 +28,7 @@ export default function Homepage(props) {
                             .delete(2)
                             .pause(500)
                             .type("ir :)")
-                            .pause(1000);
+                            .pause(2000);
 
                         // Remember to return it!
                         return instance;
